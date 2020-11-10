@@ -28,17 +28,24 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+    //counter 2 is a simple function that does a single calculation and, once it's run, it's done and there's
+      no child element or, for that matter, no parent either. 
+    //counter one is two functions in which the child function runs and pushes results to the parent. 
   
   2. Which of the two uses a closure? How can you tell?
+
+    //counter 1 uses scope because it combines functions. There's a parent function and a child
+      function where the child function reaches out to the parent function for its value/function. 
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+     //counter1 
 */
 
 // counter1 code
 function counterMaker() {
   let count = 0;
-  return function counter() {
+  return function counter() {   //
    return count++;
   }
 }
@@ -60,9 +67,9 @@ Use the inning function below to do the following:
   NOTE: You will be using this function over and over again in the tasks below
   For example: invoking inning() should return a numerical score value of 0, 1, or 2
 */
-
-function inning(/*Code Here*/){
-
+//TASK 2:
+function inning(){
+  return Math.floor(Math.random() * Math.floor(2));
     /*Code Here*/
 
 }
