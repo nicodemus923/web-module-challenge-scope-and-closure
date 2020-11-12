@@ -49,6 +49,7 @@ function counterMaker() {
    return count++;
   }
 }
+console.log(counterMaker());
 
 const counter1 = counterMaker();
 
@@ -58,7 +59,7 @@ let count = 0;
 function counter2() {
   return count++;
 }
-
+console.log(counter2());
 
 /* Task 2: inning() 
 Use the inning function below to do the following:
@@ -68,37 +69,65 @@ Use the inning function below to do the following:
   For example: invoking inning() should return a numerical score value of 0, 1, or 2
 */
 //TASK 2:
+
 function inning(){
-  return Math.floor(Math.random() * Math.floor(2));
-    /*Code Here*/
+  return Math.floor(Math.random()*Math.floor(3));
+}
+console.log(inning());
+
+function finalScore(inningCB){     //how does callback value know to reference inning
+  return {                                  
+    Home: inningCB(),
+    Away: inningCB()
+    
+  }
+}
+console.log(finalScore(inning)); 
+     
+
+function endScore(inningCB, gameCB){        //runs for home and away for each iteration. 
+  const totalGame = [];                     //CREATE EMPTY ARRAY
+  let homeScore = 0
+  let awayScore = 0
+  
+  for(let i = 0; i < 9; i++){
+  const currentScore = gameCB(inningCB)
+  homeScore = homeScore + currentScore.Home       
+  awayScore = awayScore + currentScore.Away
+  totalGame.push(`Inning ${i + 1}: Away ${currentScore.Away} - Home ${currentScore.Home}`)
+}
+  return totalGame;
 
 }
 
-/* Task 3: finalScore()
-Use the finalScore function below to do the following:
-  1. Receive the callback function `inning` that was created in Task 2 
-  2. Receive a number of innings to be played
-  3. After each inning, update the score of the home and away teams
-  4. After the last inning, return an object containing the final (total) score of the game
-For example: invoking finalScore(inning, 9) might return this object:
-{
-  "Home": 11,
-  "Away": 5
-}
-*/ 
+ console.log(endScore(inning, finalScore));
 
-function finalScore(/*code Here*/){
+// console.log(finalScore.prototype.concat);   //<---WHY DOESN'T endScore, finalScore NOT HAVE A VALUE YET? I KNOW IT'S TO DO WITH SCOPING BUT NOT SURE WHY THEY'RE STILL UNDEFINED.
 
-  /*Code Here*/
 
-}
+
+//-------------QUESTIONS--------------------
+// How can I combine finalScore function with endScore function so that the score for each team is then combined and prints as an object? 
+
+//best way to combine the elements in the new array? Tried array.prototype methods.
+
+//why do I put "9" in my for loop for counting the innings but "3" in my random # generator inning()? for loop starts count at 1 and not 0? 
+
+//how to combine into one function:
+  // -receiving the callback for "inningCB," 
+  // - receiving the number of innings,
+  // - update the score of home and away teams after each inning
+  // - return an object after the last inning with final score
+
+
+
 
 /* Task 4: 
 // create a function called getInningScore 
 // the function should take the inning function as an argument 
 // it should return an object with with a score for home and a score for away that that populates from invoking the inning callback. */
 
-function getInningScore(/*Your Code Here */) {
+function getInningScore() {
   /*Your Code Here */
 }
 /* Task 5: scoreboard()
@@ -168,3 +197,46 @@ export default{
   scoreboard,
 }
 // test test test
+
+
+
+
+
+function score(){
+  return Math.floor(Math.random() * Math.floor(5));
+}
+// create a hockey game function that takes a score as callback and return a score for home and away in the form of an object 
+
+// step 1 - we need a higher order function called hockey game
+// step 2 - we want to give hockeygame a parameter (this will be a callback of score when we pass in arguments)
+// we want to return an object inside the function 
+// the object should have a key for home and a key for away
+// the value of these keys should invoke score 
+
+function hockeyGame(scoreCB){
+  return {
+    Home: scoreCB(),
+    Away: scoreCB()
+  }
+}
+
+// console.log(hockeyGame(score));
+
+// create a function called totalGameScore - it should take score and hockeyGame as callbacks and it should return an array with the score for each period
+
+function totalGameScore(scoreCB, gameCB){
+  const totalGame = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  
+  for(let i = 0; i < 3; i++){
+    const currentScore = gameCB(scoreCB)
+    homeScore = homeScore + currentScore.Home
+    awayScore = awayScore + currentScore.Away
+    totalGame.push(`Period ${i + 1}: Away ${currentScore.Away} - Home ${currentScore.Home}`);
+  }
+  
+  return totalGame; 
+}
+
+console.log(totalGameScore(score, hockeyGame));
