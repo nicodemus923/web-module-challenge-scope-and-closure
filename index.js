@@ -177,7 +177,7 @@ function scoreboard(cb1, cb2, innings) {
 }
 console.log(scoreboard(getInningScore, inning, 9));
 
-//UGGH. I'M LOST ON #5. GONNA HAVE TO COME BACK TO THIS. :(
+//UGGH. I'M LOST ON #5. GONNA HAVE TO COME BACK TO THIS. :( .
 
 
 
