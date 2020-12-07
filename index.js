@@ -13,12 +13,13 @@
  * It returns the string `foofoo`
 */
 
-function processFirstItem(stringList, callback) {
-  return callback(stringList[0])
-}
-console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
+  function processFirstItem(stringList, callback) {
+    return callback(stringList[0])
+  }
+  console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
 
 // ⭐️ Example Challenge END ⭐️
+
 
 
 ///// M V P ///////
@@ -28,11 +29,23 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+
+   //counter 2 is a simple function that does a single calculation and, once it's run, it's done and there's
+      no child element or, for that matter, no parent either. 
+    //counter one is two functions in which the child function runs and pushes results to the parent. 
   
   2. Which of the two uses a closure? How can you tell?
+
+  //counter 1 uses scope because it combines functions. There's a parent function and a child
+      function where the child function reaches out to the parent function for its value/function. 
+  
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+
+     Counter 1 is a "counter maker" meaning that it's a function that creates a function. This could be used in "countless" situations where an unique counter is needed for some process that involves many separate moving/calculating pieces that may rely on each other for information or the output needed involves many different outputs. It could be engineered to fit the needs of something like a clock which contains many unique pieces. 
+
+     Counter 2 is a simple counter that you'd use in any scenario where a counter is used once. Could be applied to a for-loop. 
 */
 
 // counter1 code
@@ -61,11 +74,12 @@ Use the inning function below to do the following:
   For example: invoking inning() should return a numerical score value of 0, 1, or 2
 */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
+function inning(){
+  return Math.floor(Math.random() * 3);
 
 }
+
+console.log(inning());
 
 /* Task 3: finalScore()
 Use the finalScore function below to do the following:
@@ -80,21 +94,31 @@ For example: invoking finalScore(inning, 9) might return this object:
 }
 */ 
 
-function finalScore(/*code Here*/){
-
-  /*Code Here*/
+function finalScore(numCB, totInnings){
+  let home = numCB() * totInnings; //numCB() calls to innings() but says "some unknown variable that's a function"
+  let away = numCB() * totInnings; //numCB() is local so no need to declare as function
+  let score = {"Home": home, "Away": away}
+  return score; 
 
 }
+console.log(finalScore(inning, 9));
+
+
+
 
 /* Task 4: 
 // create a function called getInningScore 
 // the function should take the inning function as an argument 
 // it should return an object with with a score for home and a score for away that that populates from invoking the inning callback. */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(numCB) {
+  let home = numCB();
+  let away = numCB();
+  let score = {"Home": home, "Away": away};
+  return score;
 }
-/* Task 5: scoreboard()
+console.log(getInningScore(inning));
+/* Task 5: scoreboard()$
 Use the scoreboard function below to do the following:
   1. Receive a callback function, that you create, called `getInningScore`
   2. Receive the callback function `inning` from Task 2
@@ -138,9 +162,22 @@ Use the scoreboard function below to do the following:
   */
 
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(cb1, cb2, innings) {
+  for (let i = 0; i < innings; i++){
+    return [`Inning ${i}: Away ${cb2} - Home ${cb2}`,];
+  }
+    let away = cb1;
+    let home = cb1;
+    if (away === home) {
+      return `This game will require extra innings: ${cb1}`;
+    } else {
+      return `Final Score: ${cb1}`;
+    }
+
 }
+console.log(scoreboard(getInningScore, inning, 9));
+
+//UGGH. I'M LOST ON #5. GONNA HAVE TO COME BACK TO THIS. :( .
 
 
 
